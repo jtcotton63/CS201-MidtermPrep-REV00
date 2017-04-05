@@ -1,8 +1,12 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body { 
+    background-color: #333333;
 }
 
-a {
-  color: #00B7FF;
+h1 {
+    color: white;
+    text-align: center;
+}
+
+.panel-footer-custom {
+    padding: 0px;
 }
