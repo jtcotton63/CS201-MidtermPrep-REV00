@@ -4,6 +4,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Comment = mongoose.model('Comment');
 
+
+
 router.get('/comments', function(req, res, next) {
     Comment.find(function(err, comments) {
         if(err)
@@ -12,6 +14,19 @@ router.get('/comments', function(req, res, next) {
         res.json(comments);
     });
 });
+
+router.post('/comments', function(req, res, next) {
+    var comment = new Comment(req.body);
+    
+    comment.save(function(err, comment){
+        if(err)
+            return next(err); 
+        
+        res.json(comment);
+    });
+});
+
+
 
 router.get('/comments/:commentId', function(req, res) {
     var commentId = req.params.commentId;
@@ -28,14 +43,23 @@ router.get('/comments/:commentId', function(req, res) {
     });
 });
 
-router.post('/comments', function(req, res, next) {
-    var comment = new Comment(req.body);
+router.put('/comments/:commentId/upvotes', function(req, res, next) {
+    var commentId = req.params.commentId;
     
-    comment.save(function(err, comment){
+    var query = Comment.findById(commentId);
+    query.exec(function (err, comment){
         if(err)
-            return next(err); 
+            return next(err);
         
-        res.json(comment);
+        if (!comment) 
+            return res.status(500).send("Comment " + commentId + " doesn't exist");
+        
+        comment.upvote(function(err, comment) {
+            if(err)
+                return next(err);
+        
+            res.json(comment);
+        });
     });
 });
 
