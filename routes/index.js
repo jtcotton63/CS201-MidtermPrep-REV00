@@ -28,6 +28,22 @@ router.post('/comments', function(req, res, next) {
 
 
 
+router.delete('/comments/:commentId', function(req, res) {
+    var commentId = req.params.commentId;
+    
+    var query = Comment.findById(commentId);
+    query.exec(function (err, comment){
+        if(err)
+            return next(err);
+        
+        if (!comment) 
+            return res.status(500).send("Comment " + commentId + " doesn't exist");
+        
+        comment.remove();
+        res.status(204).send('');
+    });
+});
+
 router.get('/comments/:commentId', function(req, res) {
     var commentId = req.params.commentId;
     

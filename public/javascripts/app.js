@@ -3,6 +3,12 @@ angular.module('comment', [])
     
     $scope.comments = [];
     
+    $scope.getAll = function() {
+        return $http.get('/comments').success(function(data) {
+            angular.copy(data, $scope.comments);
+        });
+    };
+    
     $scope.addComment = function() {
         var comment = {
             title: $scope.formContent,
@@ -22,11 +28,11 @@ angular.module('comment', [])
         });
     };
     
-    $scope.getAll = function() {
-        return $http.get('/comments').success(function(data) {
-            angular.copy(data, $scope.comments);
+    $scope.delete = function(comment) {
+        $http.delete('/comments/' + comment._id ).success(function(data){
+            $scope.getAll();
         });
-      };
+    };
       
     angular.element(document).ready(function () {
         $scope.getAll();
