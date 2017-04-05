@@ -24,18 +24,33 @@
                 </div>
             </div>
         </div>
-
-        <form ng-submit="addComment()">
-            <input type="text" ng-model="formContent">
-            <button type="submit">Add Comment</button>
-        </form>
         
         <!-- Modal for posting new comments -->
-        
+        <div id="createCommentModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content panel-primary">
+                    <div class="modal-header panel-heading">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Create a new comment</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <form class="form" role="form">
+                            <input type="text" class="form-control" ng-model="formContent" placeholder="Your comment here">
+                            <br>
+                            <div class="form-group text-right">
+                                <button class="btn btn-md btn-primary" ng-click="addComment()" data-dismiss="modal">Create</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <!-- Create comment button -->
         <div class="row">
-            <button type="button" class="btn btn-success btn-lg button-spacing col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2" data-toggle="modal" data-target="#createPostModal">Post Comment</button>
+            <button type="button" class="btn btn-success btn-lg button-spacing col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2" data-toggle="modal" data-target="#createCommentModal">Post Comment</button>
         </div>
 
         <!-- Header -->
